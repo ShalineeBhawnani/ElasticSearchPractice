@@ -27,7 +27,11 @@ Elasticsearch CRUD Operation:-
      1.curl -XPUT 'localhost:9200/customers/vendors/2?pretty' -d'{"name":"sobha","age":21,"gender":"female","email":"sobha@gmail.com","phone":"123123123","street":"durg","city":"cg","state":"cg"}' -H 'Content-Type:application/json'
      2.curl -XPUT 'localhost:9200/customers/vendors/1?pretty' -d'{"name":"Michael Sharpe","age":22,"gender":"male","email":"michaelsharpe@talkalot.com","phone":"+1 (942) 544-2868","street":"858 Bushwick Court","city":"Dorneyville","state":"American Samoa, 3711"}' -H 'Content-Type: application/json'
 
-4.Display complete Document:_
+4.Display complete Document:-
     GET command is used to display document:-
       1.curl -XGET 'localhost:9200/customers/vendors/1?pretty'
       2.curl -XGET 'localhost:9200/customers/vendors/2?pretty'
+
+5.Display partial document:-
+   By specifying fields name from we can retrieve only specified field:-
+    curl -XGET 'localhost:9200/customers/vendors/1?pretty&_source=name,email' 
