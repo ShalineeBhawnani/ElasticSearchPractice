@@ -59,17 +59,34 @@ Bulk Operation in ES:-
 2.Multiple documents retrieval :-
 Elasticsearch allows to retrieve multiple documents using "_mget" API. 
  curl -XGET 'localhost:9200/_mget?pretty' -d'
-	{
-	> "docs" :[
-	> {
-	> "_index" : "customers",
-	> "_type" : "vendors",
-	> "_id" : "2"
-	> },
-	> {
-	> "_index" : "products",
-	> "_type" : "shoes",
-	> "_id" : "1"
-	> }
-	> ]
-	> }' -H 'Content-Type:application/json'
+{
+> "docs" :[
+> {
+> "_index" : "customers",
+> "_type" : "vendors",
+> "_id" : "2"
+> },
+> {
+> "_index" : "products",
+> "_type" : "shoes",
+> "_id" : "1"
+> }
+> ]
+> }' -H 'Content-Type:application/json'
+
+3.Retrieve multiple documents with Index passed in service URL :
+ curl -XGET 'localhost:9200/customers/_mget?pretty&_source=name,email' -d'       
+> {
+>     "docs" : [
+>         {
+> 
+>             "_type" : "vendors",
+>             "_id" : "1"
+>         },
+>         {
+> 
+>             "_type" : "vendors",
+>             "_id" : "2"
+>         }
+>     ]
+> }' -H 'Content-Type: application/json'
