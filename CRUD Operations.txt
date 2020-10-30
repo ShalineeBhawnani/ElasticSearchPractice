@@ -1,18 +1,3 @@
-Notes of Elastic Serach:-
-Apache Lucene:
-Apache Lucene is a free and open-source search engine software library, originally written completely in Java.
-Elasticsearch running on single machine is termed as Node(Has unique id and name) and collection of node forms Cluster(nodes join in cluster using cluster name)
-
-Document, types, Index, Shards and Replica :
-
-Document is basic unit of information expressed in JSON which need to be indexed and it resides within index. Each document is assigned to a type.
-Type is logical partitioning of documents (user defined grouping semantics), in general document belong to same fields belong to one type.
-All of the types of documents make up an index.
-An index can be split into multiple shards.
-If Documents in an index is too large to fit in hard drive of one node or too slow to serve all search requests from one node then we split the index across multiple nodes in cluster 
-that is termed as Shards. 
-A shard can be replicated Zero or more times. By default in Elasticsearch an index has 5 shards and 1 replica.
-
 Elasticsearch CRUD Operation:-
 
 1. Create indices(index) : -
