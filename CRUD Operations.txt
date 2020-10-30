@@ -57,8 +57,8 @@ Bulk Operation in ES:-
 > ' -H 'Content-Type: application/json'
 
 2.Multiple documents retrieval :-
-	Elasticsearch allows to retrieve multiple documents using "_mget" API. 
-	curl -XGET 'localhost:9200/_mget?pretty' -d'
+Elasticsearch allows to retrieve multiple documents using "_mget" API. 
+ curl -XGET 'localhost:9200/_mget?pretty' -d'
 	{
 	> "docs" :[
 	> {
