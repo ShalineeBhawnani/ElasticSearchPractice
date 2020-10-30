@@ -7,7 +7,7 @@ Elasticsearch CRUD Operation:-
 	 
 2. Display list of indices(index) :-
     GET method is used to display indices in ELS:-
-      curl -XGET 'localhost:9200/_cat/indices?v&pretty'
+	 curl -XGET 'localhost:9200/_cat/indices?v&pretty'
 	  
 3. Add document in index :
     PUT method is used to create documents in index. 
@@ -46,7 +46,8 @@ Elasticsearch CRUD Operation:-
 	 
 Bulk Operation in ES:-
 	curl -XPUT 'localhost:9200/products?&pretty'
-	Create document in index products with type name shoes:-
+	
+1.Create document in index products with type name shoes:-
 	curl -XPUT 'localhost:9200/products/shoes/1?pretty' -d'
 > {
 >   "name": "Nike",
@@ -55,6 +56,20 @@ Bulk Operation in ES:-
 > }
 > ' -H 'Content-Type: application/json'
 
-		
-	
-
+2.Multiple documents retrieval :-
+	Elasticsearch allows to retrieve multiple documents using "_mget" API. 
+	curl -XGET 'localhost:9200/_mget?pretty' -d'
+	{
+	> "docs" :[
+	> {
+	> "_index" : "customers",
+	> "_type" : "vendors",
+	> "_id" : "2"
+	> },
+	> {
+	> "_index" : "products",
+	> "_type" : "shoes",
+	> "_id" : "1"
+	> }
+	> ]
+	> }' -H 'Content-Type:application/json'
