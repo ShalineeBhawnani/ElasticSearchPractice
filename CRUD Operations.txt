@@ -15,6 +15,6 @@ A shard can be replicated Zero or more times. By default in Elasticsearch an ind
 
 Elasticsearch CRUD Operation:-
 
-1. Create indices(index) : 
-	Indices are created using PUT method.
-    curl -XPUT 'localhost:9200/customers?&pretty'
+1. Create indices(index) : -
+    Indices are created using PUT method:-
+     curl -XPUT 'localhost:9200/customers?&pretty'
