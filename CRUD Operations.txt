@@ -35,3 +35,19 @@ Elasticsearch CRUD Operation:-
 5.Display partial document:-
    By specifying fields name from we can retrieve only specified field:-
     curl -XGET 'localhost:9200/customers/vendors/1?pretty&_source=name,email' 
+
+6.Update Document:-
+   PUT method is used to update whole document in given index. 
+    curl -XPUT 'localhost:9200/customers/vendors/1?pretty' -d'{"name":"priya","age":23,"gender":"female","email":"priya@gmail.com","phone":"215672131","street":"173 Tompkins Place","city":"Epworth","state":"Puerto Rico, 2262"}' -H 'Content-Type: application/json'
+
+7.Update partial document:-
+   In order to update document fields we have to specify JSON with key value "doc":-
+    curl -XPOST 'localhost:9200/customers/vendors/1/_update?pretty' -d'{
+>   "doc": {
+>      "age": "24",
+>      "city":"Wyano"
+>   }
+> }
+> ' -H 'Content-Type: application/json'
+
+8.
