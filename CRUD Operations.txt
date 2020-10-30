@@ -43,3 +43,18 @@ Elasticsearch CRUD Operation:-
 	
 9.Delete Index : -
      curl -XDELETE 'localhost:9200/products?pretty'
+	 
+Bulk Operation in ES:-
+	curl -XPUT 'localhost:9200/products?&pretty'
+	Create document in index products with type name shoes:-
+	curl -XPUT 'localhost:9200/products/shoes/1?pretty' -d'
+> {
+>   "name": "Nike",
+>   "size": 8,
+>   "color": "white"
+> }
+> ' -H 'Content-Type: application/json'
+
+		
+	
+
