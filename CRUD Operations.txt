@@ -2,11 +2,13 @@ Elasticsearch CRUD Operation:-
 
 1. Create indices(index) : -
     Indices are created using PUT method:-
-     curl -XPUT 'localhost:9200/customers?&pretty'
-
+     1.curl -XPUT 'localhost:9200/customers?&pretty'
+	 2.curl -XPUT 'localhost:9200/products?&pretty'
+	 
 2. Display list of indices(index) :-
     GET method is used to display indices in ELS:-
       curl -XGET 'localhost:9200/_cat/indices?v&pretty'
+	  
 3. Add document in index :
     PUT method is used to create documents in index. 
      1.curl -XPUT 'localhost:9200/customers/vendors/2?pretty' -d'{"name":"sobha","age":21,"gender":"female","email":"sobha@gmail.com","phone":"123123123","street":"durg","city":"cg","state":"cg"}' -H 'Content-Type:application/json'
@@ -38,4 +40,6 @@ Elasticsearch CRUD Operation:-
 8.Delete document:
 	DELETE method is used to delete document:-
 	curl -XDELETE 'localhost:9200/customers/vendors/1?pretty'
-	 
+	
+9.Delete Index : -
+     curl -XDELETE 'localhost:9200/products?pretty'
