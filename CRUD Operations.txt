@@ -35,4 +35,7 @@ Elasticsearch CRUD Operation:-
 > }
 > ' -H 'Content-Type: application/json'
 
-8.
+8.Delete document:
+	DELETE method is used to delete document:-
+	curl -XDELETE 'localhost:9200/customers/vendors/1?pretty'
+	 
