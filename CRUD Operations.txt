@@ -44,6 +44,9 @@ Elasticsearch CRUD Operation:-
 9.Delete Index : -
      curl -XDELETE 'localhost:9200/products?pretty'
 	 
+10.List all docs in index:-
+     curl -X GET 'http://localhost:9200/customers/_search'
+	
 Bulk Operation in ES:-
 	curl -XPUT 'localhost:9200/products?&pretty'
 	
@@ -103,3 +106,5 @@ Elasticsearch allows to retrieve multiple documents using "_mget" API.
 > { "update" : {"_id" : "1"} }
 > { "doc" : {"color" : "Green"} }
 > '
+
+
