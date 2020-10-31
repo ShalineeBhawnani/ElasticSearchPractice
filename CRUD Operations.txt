@@ -90,3 +90,16 @@ Elasticsearch allows to retrieve multiple documents using "_mget" API.
 >         }
 >     ]
 > }' -H 'Content-Type: application/json'
+
+4.Bulk operation to Create, Update and Delete:-
+  curl -XPOST 'localhost:9200/products/shoes/_bulk?pretty' -H 'Content-Type: application/json' -d'
+> { "index" : {"_id" : "3" } }
+> { "name": "Reef","size": 6,"color": "black" }
+> { "index" : {"_id" : "4" } }
+> { "name": "PFFlys","size": 7,"color": "Red" }
+> { "delete" : {"_id" : "2" } }
+> { "create" : {"_id" : "5" } }
+> { "name": "Heelys","size": 11,"color": "black" }
+> { "update" : {"_id" : "1"} }
+> { "doc" : {"color" : "Green"} }
+> '
