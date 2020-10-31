@@ -124,5 +124,18 @@ curl -XPUT 'localhost:9200/student?pretty' -H 'Content-Type: application/json' -
 >   }
 > }'
 
+Using Kibana CURD Operations:-
 JSON data set into Elasticsearch:-
 curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/bank/account/_bulk?pretty' --data-binary @accounts.json
+
+1.Return all accounts from state UT.
+  GET /bank/_search?q=state:UT.
+
+2.Return all accounts from UT or CA.
+   GET /bank/_search?q=state:UT OR CA
+
+3.Return all accounts from state TN and from female clients.
+   GET /bank/_search?q=state:TN AND gender:F
+
+4.Return all accounts from people between 20 and 25 years old.
+   GET /bank/_search?q=age:(>=20 AND <=25)
