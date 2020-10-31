@@ -114,15 +114,15 @@ Elasticsearch allows to retrieve multiple documents using "_mget" API.
 > '
 
 Setting up the number of shards :-
-	setting up the number of shards is a static operation:-specify it when you are creating an index any change after that require complete reindexing of data.
-	setting up number of replicas is a dynamic operation :- changes done at any time after index creation also.
-	curl -XPUT 'localhost:9200/student?pretty' -H 'Content-Type: application/json' -d '
-	> {
-	> "settings":{
-	>     "number_of_shards":2,
-	>     "number_of_replicas":1
-	>   }
-	> }'
-	
+setting up the number of shards is a static operation:-specify it when you are creating an index any change after that require complete reindexing of data.
+setting up number of replicas is a dynamic operation :- changes done at any time after index creation also.
+curl -XPUT 'localhost:9200/student?pretty' -H 'Content-Type: application/json' -d '
+> {
+> "settings":{
+>     "number_of_shards":2,
+>     "number_of_replicas":1
+>   }
+> }'
+
 JSON data set into Elasticsearch:-
 curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/bank/account/_bulk?pretty' --data-binary @accounts.json
