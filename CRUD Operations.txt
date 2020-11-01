@@ -204,3 +204,6 @@ GET /customers/vendors/_search
     }
   }
 }
+
+get all the indexes:-
+curl -XGET 'http://localhost:9200/_mapping?pretty=true'
