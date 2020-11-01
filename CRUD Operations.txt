@@ -150,3 +150,37 @@ Using wildcard queries we can search for items without knowing the exact spellin
     }
   }
 }
+
+If we don't know the exact character length then we can run the following query:
+GET /customers/vendors/_search
+{
+  "query": { 
+    "wildcard": { 
+      "name": "s*a" 
+    }
+  }
+}
+
+Boolean Query:-
+The boolean query is used to search the results on the basis of joining them with 'or', 'and', 'not' conditions.
+GET /customers/vendors/_search
+{
+  "query": { 
+     "bool": {
+    "must": [
+      {
+        "match": {
+          "name": "sobha"
+        }
+      }
+    ],     
+    "must_not": [
+        {
+          "match": {
+            "street": "raipur"
+          }
+        }
+      ]
+    }
+  }
+}
