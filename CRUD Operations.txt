@@ -139,3 +139,14 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/bank/account
 
 4.Return all accounts from people between 20 and 25 years old.
    GET /bank/_search?q=age:(>=20 AND <=25)
+   
+Wildcard Query:-
+Using wildcard queries we can search for items without knowing the exact spelling.
+ GET /customers/vendors/_search
+{
+  "query": { 
+    "wildcard": { 
+      "name": "so??a" 
+    }
+  }
+}
