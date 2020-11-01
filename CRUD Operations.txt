@@ -184,3 +184,23 @@ GET /customers/vendors/_search
     }
   }
 }
+it will return the documents where both of these items are matched.
+
+GET /customers/vendors/_search
+{
+  "query": { 
+    "bool": {
+    "should": [
+      {
+        "match": {
+          "name": "sobha"
+        }
+      }, {
+          "match": {
+            "city": "cg"
+          }
+        }
+    ]
+    }
+  }
+}
