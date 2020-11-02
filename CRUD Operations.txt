@@ -67,7 +67,7 @@ Bulk Operation in ES:-
 
 2.Multiple documents retrieval :-
 Elasticsearch allows to retrieve multiple documents using "_mget" API. 
- curl -XGET 'localhost:9200/_mget?pretty' -d'
+ 1. curl -XGET 'localhost:9200/_mget?pretty' -d'
 {
 > "docs" :[
 > {
@@ -82,6 +82,21 @@ Elasticsearch allows to retrieve multiple documents using "_mget" API.
 > }
 > ]
 > }' -H 'Content-Type:application/json'
+
+2.GET /_mget
+{
+  
+ "docs": [
+    {
+      "_index": "customers",
+      "_id": "1"
+    },
+    {
+      "_index": "customers",
+      "_id": "2"
+    }
+  ]
+}
 
 3.Retrieve multiple documents with Index passed in service URL :
  curl -XGET 'localhost:9200/customers/_mget?pretty&_source=name,email' -d'       
@@ -186,6 +201,25 @@ GET /customers/vendors/_search
 }
 it will return the documents where both of these items are matched.
 
+Prefix Query:-
+GET /_search
+{
+  "query": {
+    "prefix": {
+      "name": {
+        "value": "so"
+      }
+    }
+  }
+}
+or 
+GET /_search
+{
+  "query": {
+    "prefix" : { "name" : "so" }
+  }
+}
+
 GET /customers/vendors/_search
 {
   "query": { 
@@ -240,3 +274,23 @@ GET copied_customers/_search
     }
   }
 }
+
+Analyzing Process:-
+Character filters:-
+ remove the html tags from a text:-
+ curl -XPOST 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d '{
+>   "tokenizer": "standard",
+>   "char_filter": [
+>     "html_strip"
+>   ],
+>   "
+
+Tokenizer:-
+ The input text after its transformation from the Character filter is passed to the tokeniser.
+ curl -XPOST 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d '{
+> "tokenizer":"standard",
+> "text":"the Auto-generation is success"
+> }'
+
+ 
+
