@@ -218,3 +218,13 @@ Coping one index data to another index:-
     "index": "copied_customers"
   }
 }
+
+after coping veryfieg data in kibana:-
+
+GET copied_customers/_search
+{
+  "query": 
+    {
+      "match_all":{}
+    }
+}
