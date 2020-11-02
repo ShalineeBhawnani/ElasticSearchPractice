@@ -207,3 +207,14 @@ GET /customers/vendors/_search
 
 get all the indexes:-
 curl -XGET 'http://localhost:9200/_mapping?pretty=true'
+
+Coping one index data to another index:-
+ POST /_reindex
+{
+  "source": {
+    "index": "customers"
+  },
+  "dest": {
+    "index": "copied_customers"
+  }
+}
