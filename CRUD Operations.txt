@@ -228,3 +228,15 @@ GET copied_customers/_search
       "match_all":{}
     }
 }
+
+Aggregation:-
+GET copied_customers/_search
+{
+  "aggs": {
+    "my-agg-name": {
+      "terms": {
+        "field": "my-field"
+      }
+    }
+  }
+}
