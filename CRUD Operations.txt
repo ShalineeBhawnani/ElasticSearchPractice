@@ -582,3 +582,34 @@ GET /sampledata/_search?ignore_throttled=false
 	}
   ]
  }
+ 
+ Get distinct values from a field in ElasticSearch:-
+ aggregation to get distinct values :-
+GET /customers/vendors/_search
+{
+"aggs": {
+    "distinct_age": {
+      "terms": {
+        "field": "age"
+      }
+    }
+  }
+}
+
+GET /customers/vendors/_search
+{
+   "query" : {
+        "bool" : {
+               "should" : [ 
+                  { "term" : { "name" : "sobha" } }
+               ]
+         }
+    },
+"aggs": {
+    "distinct_age": {
+      "terms": {
+        "field": "age"
+      }
+    }
+  }
+}
