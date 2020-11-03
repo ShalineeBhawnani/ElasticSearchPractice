@@ -635,6 +635,27 @@ POST /_sql?format=csv
   "query": "SELECT * FROM library ORDER BY page_count DESC",
   "fetch_size": 5
 }
+json format:-
+POST /_sql?format=json
+{
+  "query": "SELECT * FROM library ORDER BY page_count DESC",
+  "fetch_size": 5
+}
+
+Filtring using Elasticsearch query DSL:-
+POST /_sql?format=txt
+{
+  "query": "SELECT * FROM library ORDER BY page_count DESC",
+  "filter": {
+    "range": {
+      "page_count": {
+        "gte" : 100,
+        "lte" : 500
+      }
+    }
+  },
+  "fetch_size": 5
+}
 in kibana:-
 GET /_sql
 {
