@@ -541,4 +541,30 @@ curl -XPOST 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json'
 }'
 token :-“my”,”name”,”is”,”arun”
 
+Freezes an index:-indices that are still open — keeping them searchable — but do not occupy heap
+When we freeze an index, it becomes read-only and its transient data structures are dropped from memory.
+but only one frozen shard is executing per node at the same time. 
+ POST /index/_freeze
+ 
+ POST /sampledata/_doc
+{
+    "name": "Jane",
+    "lastname": "Doe"
+}
+POST /sampledata/_doc
+{
+    "name": "John",
+    "lastname": "Doe"
+}
+GET /sampledata/_search
+POST /sampledata/_forcemerge?max_num_segments=1
+POST /sampledata/_freeze
 
+GET /sampledata/_search?ignore_throttled=false
+{
+ "query": {
+   "match": {
+     "name": "jane"
+   }
+ }
+}
