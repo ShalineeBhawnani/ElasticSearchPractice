@@ -304,6 +304,132 @@ Token filter:-
 2.Analyzers:-
  The combination of these three components (character filters,tokenizers and token filters) are called as Analyzers.
  Standard Analyzer:-is a combination of a standard tokenizer and two token filters (standard token filter, lowercase and stop token filter). 
+ PUT standardindex
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "tokenizer": "my_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "my_tokenizer": {
+          "type": "standard",
+          "max_token_length": 5
+        }
+      }
+    }
+  }
+}
+POST standardIndex/_analyze
+{
+  "analyzer": "my_analyzer",
+  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+}
+[ The, 2, QUICK, Brown, Foxes, jumpe, d, over, the, lazy, dog's, bone ]
+
+ simple analyzer:-
+	POST _analyze
+	{
+	  "analyzer": "simple",
+	  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+	}
+   [ the, quick, brown, foxes, jumped, over, the, lazy, dog, s, bone ]
+   	It consists of: Lowercase Tokenizer
+	PUT /simpleindex
+	{
+	  "settings": {
+		"analysis": {
+		  "analyzer": {
+			"my_custom_simple_analyzer": {
+			  "tokenizer": "lowercase",
+			  "filter": [                          
+			  ]
+			}
+		  }
+		}
+	  }
+	}
+	
+ whitespace analyzer :-
+	 POST _analyze
+	{
+	  "analyzer": "whitespace",
+	  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+	}
+	[ The, 2, QUICK, Brown-Foxes, jumped, over, the, lazy, dog's, bone. ]
+	It consists of: whitespace tokenizer
+	PUT /whitespace_example
+ {
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "rebuilt_whitespace": {
+          "tokenizer": "whitespace",
+          "filter": [         
+          ]
+        }
+      }
+    }
+  }
+}
+Stop analyzer:-
+ The stop analyzer is the same as the simple analyzer but adds support for removing stop words. 
+ POST _analyze
+{
+  "analyzer": "stop",
+  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+}
+[ quick, brown, foxes, jumped, over, lazy, dog, s, bone ]
+
+The stop analyzer accepts the following parameters: stopwords,stopwords_path
+PUT stop-index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_stop_analyzer": {
+          "type": "stop",
+          "stopwords": ["the", "over"]
+        }
+      }
+    }
+  }
+}
+
+POST stop-index/_analyze
+{
+  "analyzer": "my_stop_analyzer",
+  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+}
+[ quick, brown, foxes, jumped, lazy, dog, s, bone ]
+
+It consists of:
+ Lower Case Tokenizer & Stop Token Filter
+ PUT /stop_example
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "english_stop": {
+          "type":       "stop",
+          "stopwords":  "_english_" 
+        }
+      },
+      "analyzer": {
+        "rebuilt_stop": {
+          "tokenizer": "lowercase",
+          "filter": [
+            "english_stop"          
+          ]
+        }
+      }
+    }
+  }
+}
+
+keyword analyzer:-
 
 3. Analysis Phases:-
   Index time analysis:-
