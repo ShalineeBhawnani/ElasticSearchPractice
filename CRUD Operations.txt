@@ -275,7 +275,7 @@ GET copied_customers/_search
   }
 }
 
-Analyzing Process:-
+1. Analyzing Process:-
 Character filters:-
  remove the html tags from a text:-
  curl -XPOST 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d '{
@@ -292,5 +292,30 @@ Tokenizer:-
 > "text":"the Auto-generation is success"
 > }'
 
- 
+Token filter:-
+ curl -XPOST 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d'{
+>   "tokenizer": "standard",
+>   "filter": [
+>     "lowercase"
+>   ],
+>   "text": "The Auto-generation is a success"
+> }'
+
+2.Analyzers:-
+ The combination of these three components (character filters,tokenizers and token filters) are called as Analyzers.
+ Standard Analyzer:-is a combination of a standard tokenizer and two token filters (standard token filter, lowercase and stop token filter). 
+
+3. Analysis Phases:-
+  Index time analysis:-
+ curl -XPOST localhost:9200/students/class/1 -d '{
+   "text": "My name is Arun"
+}'
+Elasticsearch applies the default analyzer “Standard analyzer” on this.
+
+curl -XPOST 'localhost:9200/_analyze?pretty' -H 'Content-Type: application/json' -d'{
+   "analyzer": "standard",
+   "text": "My name is Arun"
+}'
+token :-“my”,”name”,”is”,”arun”
+
 
