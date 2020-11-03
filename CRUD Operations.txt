@@ -429,8 +429,105 @@ It consists of:
   }
 }
 
-keyword analyzer:-
+ keyword analyzer:-returns the entire input string as a single token.
+ POST _analyze
+{
+  "analyzer": "keyword",
+  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+}
+[ The 2 QUICK Brown-Foxes jumped over the lazy dog's bone. ]
+ It consists of:-Keyword Tokenizer
+ 
+ pattern analyzer :-
+  The pattern analyzer uses a regular expression to split the text into terms. 
+  POST _analyze
+{
+  "analyzer": "pattern",
+  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+}
+[ the, 2, quick, brown, foxes, jumped, over, the, lazy, dog, s, bone ]
+PUT my-index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_email_analyzer": {
+          "type":      "pattern",
+          "pattern":   "\\W|_", 
+          "lowercase": true
+        }
+      }
+    }
+  }
+}
+POST my-index/_analyze
+{
+  "analyzer": "my_email_analyzer",
+  "text": "John_Smith@foo-bar.com"
+}
+[ john, smith, foo, bar, com ]
+The pattern anlayzer consists of:
+ Pattern Tokenizer
+ Lower Case Token Filter
+ Stop Token Filter
+ 
+ Language Analyzers:-
+  example:
+  arabic analyzer:-
+  PUT /arabic_example
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "arabic_stop": {
+          "type":       "stop",
+          "stopwords":  "_arabic_" 
+        },
+      },
+      "analyzer": {
+        "rebuilt_arabic": {
+          "tokenizer":  "standard",
+          "filter": [
+            "lowercase",
+            "decimal_digit",
+            "arabic_keywords",
+          ]
+        }
+      }
+    }
+  }
+}
+ fingerprint analyzer :-Input text is lowercased, normalized to remove extended characters, sorted, deduplicated and concatenated into a single token. 
+ 
+  POST _analyze
+{
+  "analyzer": "fingerprint",
+  "text": "Yes yes, Gödel said this sentence is consistent and."
+}
+[ and consistent godel is said sentence this yes ]
+PUT my-index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_fingerprint_analyzer": {
+          "type": "fingerprint",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  }
+}
 
+POST my-index/_analyze
+{
+  "analyzer": "my_fingerprint_analyzer",
+  "text": "Yes yes, Gödel said this sentence is consistent and."
+}
+ [ consistent godel said sentence yes ]
+ The fingerprint tokenizer consists of:
+ Standard Tokenizer
+ 
 3. Analysis Phases:-
   Index time analysis:-
  curl -XPOST localhost:9200/students/class/1 -d '{
