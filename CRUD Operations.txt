@@ -568,3 +568,17 @@ GET /sampledata/_search?ignore_throttled=false
    }
  }
 }
+
+ Pipeline converter:-
+ PUT _ingest/pipeline/pipeline-id
+ {
+  "description": "converts the content of the id field to an integer",
+  "processors" : [
+	{
+	  "convert" : {
+		"field" : "id",
+		"type": "integer"
+	  }
+	}
+  ]
+ }
