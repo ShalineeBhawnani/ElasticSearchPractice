@@ -739,4 +739,85 @@ GET /nested
     }
   }
 }
+multi-level nested queries:-
+ PUT /drivers
+{
+  "mappings": {
+    "properties": {
+      "driver": {
+        "type": "nested",
+        "properties": {
+          "last_name": {
+            "type": "text"
+          },
+          "vehicle": {
+            "type": "nested",
+            "properties": {
+              "make": {
+                "type": "text"
+              },
+              "model": {
+                "type": "text"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+PUT /drivers/_doc/1
+{
+  "driver" : {
+        "last_name" : "McQueen",
+        "vehicle" : [
+            {
+                "make" : "Powell Motors",
+                "model" : "Canyonero"
+            },
+            {
+                "make" : "Miller-Meteor",
+                "model" : "Ecto-1"
+            }
+        ]
+    }
+}
+
+PUT /drivers/_doc/2?refresh
+{
+  "driver" : {
+        "last_name" : "Hudson",
+        "vehicle" : [
+            {
+                "make" : "Mifune",
+                "model" : "Mach Five"
+            },
+            {
+                "make" : "Miller-Meteor",
+                "model" : "Ecto-1"
+            }
+        ]
+    }
+}
+GET /drivers/_search
+{
+  "query": {
+    "nested": {
+      "path": "driver",
+      "query": {
+        "nested": {
+          "path": "driver.vehicle",
+          "query": {
+            "bool": {
+              "must": [
+                { "match": { "driver.vehicle.make": "Powell Motors" } },
+                { "match": { "driver.vehicle.model": "Canyonero" } }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
    has_child and has_parent queries:-A join field relationship can exist between documents within a single index. 
