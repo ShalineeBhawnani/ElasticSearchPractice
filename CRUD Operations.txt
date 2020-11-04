@@ -683,3 +683,17 @@ PUT my_index_partition
     }
 }
  
+Match Query:-
+ match queries accept text/numerics/dates, analyzes them, and constructs a query.
+GET /_search
+{
+    "query": {
+        "match" : {
+            "name" : "sobha"
+        }
+    }
+}
+
+ 
+ match_phrase query analyzes:-analyzes the text and creates a phrase query
+ 
