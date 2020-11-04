@@ -568,8 +568,8 @@ GET /sampledata/_search?ignore_throttled=false
    }
  }
 }
-
- Pipeline converter:-
+____________________________
+ Pipeline converter:-Converts a field in the currently ingested document to a different type
  PUT _ingest/pipeline/pipeline-id
  {
   "description": "converts the content of the id field to an integer",
@@ -582,10 +582,16 @@ GET /sampledata/_search?ignore_throttled=false
 	}
   ]
  }
- 
+ Using that pipeline for an index request:
+  PUT _bulk?pipeline=pipeline-id
+{"index": {"_index": "customers", "_type": "vendors", "_id": "11"}}
+{"name":"mukesh","age":21,"gender":"female","email":"sobha@gmail.com","phone":"123123123","street":"durg cg 1292","city":"cg","state":"cg"}
+{"index": {"_index": "customers", "_type": "product", "_id": "22"}}
+{"name":"harsha ","age":21,"gender":"female","email":"sobha@gmail.com","phone":"123123123","street":"durg cg 1292","city":"cg","state":"cg"}
+
  Get distinct values from a field in ElasticSearch:-
  aggregation to get distinct values :-
-GET /customers/vendors/_search
+GET /customers/vendors/_search?name,age
 {
 "aggs": {
     "distinct_age": {
@@ -702,3 +708,35 @@ GET /_search
         }
     }
 }
+
+Joining queries:-
+  Elasticsearch offers two forms of join:-
+   nested query:-Documents may contain fields of type nested. 
+    PUT /nested
+{
+  "mappings": {
+    "properties": {
+      "obj": {
+        "type": "nested"
+      }
+    }
+  }
+}
+GET /nested
+{
+  "query": {
+    "nested": {
+      "path": "obj",
+      "query": {
+        "bool": {
+          "must": [
+            { "match": { "obj.name": "blue" } },
+            { "range": { "obj.count": { "gt": 5 } } }
+          ]
+        }
+      },
+      "score_mode": "avg"
+    }
+  }
+}
+   has_child and has_parent queries:-A join field relationship can exist between documents within a single index. 
