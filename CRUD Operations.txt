@@ -693,7 +693,12 @@ GET /_search
         }
     }
 }
-
- 
  match_phrase query analyzes:-analyzes the text and creates a phrase query
- 
+ GET /_search
+{
+    "query": {
+        "match_phrase" : {
+            "street" : "durg cg"
+        }
+    }
+}
