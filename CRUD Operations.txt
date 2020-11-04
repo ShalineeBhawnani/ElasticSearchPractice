@@ -821,3 +821,58 @@ GET /drivers/_search
   }
 }
    has_child and has_parent queries:-A join field relationship can exist between documents within a single index. 
+   has_child query:-child document matches the search, the query returns the parent document.
+   PUT /has-child
+{
+  "mappings": {
+    "properties": {
+      "my-join-field": {
+        "type": "join",
+        "relations": {
+          "parent": "child"
+        }
+      }
+    }
+  }
+}
+GET /_search
+{
+  "query": {
+    "has_child": {
+      "type": "child",
+      "query": {
+        "match_all": {}
+      },
+    }
+  }
+}
+  has_parent:-
+   PUT /has-parent
+{
+  "mappings": {
+    "properties": {
+      "my-join-field": {
+        "type": "join",
+        "relations": {
+          "parent": "child"
+        }
+      },
+    }
+  }
+}
+
+  GET /has-parent/_search
+{
+  "query": {
+    "has_parent": {
+      "parent_type": "parent",
+      "query": {
+        "term": {
+          "tag": {
+            "value": "Elasticsearch"
+          }
+        }
+      }
+    }
+  }
+}
